@@ -1,4 +1,9 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src&#x2F;signed_binary.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>signed_binary.rs - source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../lpc55/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav><section id="main" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/signed_binary.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>signed_binary.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../lpc55/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../../lpc55/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../lpc55/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -184,13 +189,17 @@
 <span id="184">184</span>
 <span id="185">185</span>
 <span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">core::convert::TryFrom</span>;
 <span class="kw">use</span> <span class="ident">std::fs</span>;
 
 <span class="kw">use</span> <span class="ident">anyhow</span>::{<span class="ident">Context</span> <span class="kw">as</span> <span class="kw">_</span>, <span class="prelude-ty">Result</span>};
 
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::pki</span>::{<span class="ident">Certificate</span>, <span class="ident">CertificateSlot</span>, <span class="ident">CertificateSource</span>, <span class="ident">Certificates</span>, <span class="ident">SigningKey</span>};
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::secure_binary::Config</span>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::pki</span>::{<span class="ident">Certificate</span>, <span class="ident">Certificates</span>, <span class="ident">CertificateSlot</span>, <span class="ident">CertificateSource</span>, <span class="ident">SigningKey</span>};
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::util::word_padded</span>;
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SignedImage</span>(<span class="kw">pub</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>);
@@ -204,16 +213,18 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ImageSigningRequest</span> {
-
     <span class="comment">// pub fn from(plain_image: Vec&lt;u8&gt;, certificates: Certificates, signing_key: SigningKey) -&gt; Self {</span>
     <span class="comment">//     Self { plain_image, certificates, slot }</span>
     <span class="comment">// }</span>
 
     <span class="doccomment">/// Parse config, load all data checking for validity.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-
-        <span class="kw">let</span> <span class="ident">plain_image</span> <span class="op">=</span> <span class="ident">fs::read</span>(<span class="kw-2">&amp;</span><span class="ident">config</span>.<span class="ident">firmware</span>.<span class="ident">image</span>)
-            .<span class="ident">with_context</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">format!</span>(<span class="string">&quot;Failed to read firmware image from {}&quot;</span>, <span class="ident">config</span>.<span class="ident">firmware</span>.<span class="ident">image</span>))<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">plain_image</span> <span class="op">=</span> <span class="ident">fs::read</span>(<span class="kw-2">&amp;</span><span class="ident">config</span>.<span class="ident">firmware</span>.<span class="ident">image</span>).<span class="ident">with_context</span>(<span class="op">|</span><span class="op">|</span> {
+            <span class="macro">format!</span>(
+                <span class="string">&quot;Failed to read firmware image from {}&quot;</span>,
+                <span class="ident">config</span>.<span class="ident">firmware</span>.<span class="ident">image</span>
+            )
+        })<span class="question-mark">?</span>;
 
         <span class="kw">let</span> <span class="ident">certificate_sources</span> <span class="op">=</span> [
             <span class="ident">CertificateSource::try_from</span>(<span class="ident">config</span>.<span class="ident">pki</span>.<span class="ident">certificates</span>[<span class="number">0</span>].<span class="ident">as_ref</span>())<span class="question-mark">?</span>,
@@ -257,12 +268,11 @@
     }
 
     <span class="kw">fn</span> <span class="ident">assemble_unsigned_image</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">i</span>: <span class="ident">CertificateSlot</span>) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> {
-
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">word_padded</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">plain_image</span>);
 
         <span class="kw">let</span> <span class="ident">certificate</span> <span class="op">=</span> <span class="ident">word_padded</span>(<span class="self">self</span>.<span class="ident">certificates</span>.<span class="ident">certificate_der</span>(<span class="ident">i</span>));
 
-        <span class="kw">let</span> <span class="ident">total_image_size</span> <span class="op">=</span> <span class="ident">modify_header</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">image</span>, <span class="ident">certificate</span>.<span class="ident">len</span>());
+        <span class="kw">let</span> <span class="ident">total_image_size</span> <span class="op">=</span> <span class="ident">modify_header</span>(<span class="kw-2">&amp;mut</span> <span class="ident">image</span>, <span class="ident">certificate</span>.<span class="ident">len</span>());
         <span class="comment">// println!(&quot;{:x}&quot;, total_image_size);</span>
 
         <span class="kw">let</span> <span class="ident">build_number</span> <span class="op">=</span> <span class="number">1</span>;
@@ -276,7 +286,7 @@
         <span class="ident">image</span>.<span class="ident">extend_from_slice</span>(<span class="kw-2">&amp;</span><span class="ident">certificate_block_header</span>);
 
         <span class="comment">// certificate block</span>
-        <span class="ident">extendu</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">image</span>, <span class="ident">certificate</span>.<span class="ident">len</span>());
+        <span class="ident">extendu</span>(<span class="kw-2">&amp;mut</span> <span class="ident">image</span>, <span class="ident">certificate</span>.<span class="ident">len</span>());
         <span class="ident">image</span>.<span class="ident">extend_from_slice</span>(<span class="kw-2">&amp;</span><span class="ident">certificate</span>);
 
         <span class="comment">// ROT key hash table</span>
@@ -290,7 +300,7 @@
 }
 
 <span class="comment">// UM11126, Chap. 6, Table 172, &quot;Image header&quot;</span>
-<span class="kw">fn</span> <span class="ident">modify_header</span>(<span class="ident">padded_image</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">padded_certificate_length</span>: <span class="ident">usize</span>) -&gt; <span class="ident">usize</span> {
+<span class="kw">fn</span> <span class="ident">modify_header</span>(<span class="ident">padded_image</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">padded_certificate_length</span>: <span class="ident">usize</span>) -&gt; <span class="ident">usize</span> {
     <span class="kw">let</span> <span class="ident">image_size</span> <span class="op">=</span> <span class="ident">padded_image</span>.<span class="ident">len</span>();
 
     <span class="kw">let</span> <span class="ident">non_image_size</span> <span class="op">=</span>
@@ -318,7 +328,11 @@
     <span class="ident">total_image_size</span>
 }
 
-<span class="kw">fn</span> <span class="ident">certificate_block_header_bytes</span>(<span class="ident">total_image_length</span>: <span class="ident">usize</span>, <span class="ident">aligned_cert_length</span>: <span class="ident">usize</span>, <span class="ident">build_number</span>: <span class="ident">u32</span>) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">certificate_block_header_bytes</span>(
+    <span class="ident">total_image_length</span>: <span class="ident">usize</span>,
+    <span class="ident">aligned_cert_length</span>: <span class="ident">usize</span>,
+    <span class="ident">build_number</span>: <span class="ident">u32</span>,
+) -&gt; <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
 
     <span class="comment">// UM 11126, Chap 7, Table 185</span>
@@ -326,51 +340,49 @@
     <span class="comment">// actual header: first 16/32 bytes</span>
     <span class="ident">bytes</span>.<span class="ident">extend_from_slice</span>(<span class="string">b&quot;cert&quot;</span>);
     <span class="comment">// headerMajorVersion = 1</span>
-    <span class="ident">extend16</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>, <span class="number">1</span>);
+    <span class="ident">extend16</span>(<span class="kw-2">&amp;mut</span> <span class="ident">bytes</span>, <span class="number">1</span>);
     <span class="comment">// headerMinorVersion = 0</span>
-    <span class="ident">extend16</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>, <span class="number">0</span>);
+    <span class="ident">extend16</span>(<span class="kw-2">&amp;mut</span> <span class="ident">bytes</span>, <span class="number">0</span>);
     <span class="comment">// header length = 0x20</span>
-    <span class="ident">extend32</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>, <span class="number">0x20</span>);
+    <span class="ident">extend32</span>(<span class="kw-2">&amp;mut</span> <span class="ident">bytes</span>, <span class="number">0x20</span>);
     <span class="comment">// RFU</span>
-    <span class="ident">extend32</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>, <span class="number">0</span>);
+    <span class="ident">extend32</span>(<span class="kw-2">&amp;mut</span> <span class="ident">bytes</span>, <span class="number">0</span>);
 
     <span class="comment">// actual header: second 16/32 bytes</span>
     <span class="comment">// &quot;for downgrade protection&quot;</span>
     <span class="comment">// grep for FOUR_CHAR_CODE</span>
-    <span class="ident">extend32</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>, <span class="ident">build_number</span>);
-    <span class="ident">extendu</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>, <span class="ident">total_image_length</span>);
+    <span class="ident">extend32</span>(<span class="kw-2">&amp;mut</span> <span class="ident">bytes</span>, <span class="ident">build_number</span>);
+    <span class="ident">extendu</span>(<span class="kw-2">&amp;mut</span> <span class="ident">bytes</span>, <span class="ident">total_image_length</span>);
     <span class="comment">// println!(&quot;set length to {:x}&quot;, total_image_length);</span>
 
     <span class="kw">let</span> <span class="ident">certificates</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">1</span>;
     <span class="comment">// one certificate</span>
-    <span class="ident">extend32</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>, <span class="ident">certificates</span>);
+    <span class="ident">extend32</span>(<span class="kw-2">&amp;mut</span> <span class="ident">bytes</span>, <span class="ident">certificates</span>);
     <span class="comment">// 0x480 = 1152</span>
-    <span class="ident">extendu</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>, <span class="ident">aligned_cert_length</span> <span class="op">+</span> <span class="number">4</span>);
+    <span class="ident">extendu</span>(<span class="kw-2">&amp;mut</span> <span class="ident">bytes</span>, <span class="ident">aligned_cert_length</span> <span class="op">+</span> <span class="number">4</span>);
 
     <span class="macro">assert_eq!</span>(<span class="number">32</span>, <span class="ident">bytes</span>.<span class="ident">len</span>());
 
     <span class="ident">bytes</span>
 }
 
-<span class="kw">fn</span> <span class="ident">extend16</span>(<span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">value</span>: <span class="ident">u16</span>) {
+<span class="kw">fn</span> <span class="ident">extend16</span>(<span class="ident">bytes</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">value</span>: <span class="ident">u16</span>) {
     <span class="ident">bytes</span>.<span class="ident">extend_from_slice</span>(<span class="ident">value</span>.<span class="ident">to_le_bytes</span>().<span class="ident">as_ref</span>());
 }
 
-<span class="kw">fn</span> <span class="ident">extend32</span>(<span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">value</span>: <span class="ident">u32</span>) {
+<span class="kw">fn</span> <span class="ident">extend32</span>(<span class="ident">bytes</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">value</span>: <span class="ident">u32</span>) {
     <span class="ident">bytes</span>.<span class="ident">extend_from_slice</span>(<span class="ident">value</span>.<span class="ident">to_le_bytes</span>().<span class="ident">as_ref</span>());
 }
 
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
-<span class="kw">fn</span> <span class="ident">extend64</span>(<span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">value</span>: <span class="ident">u64</span>) {
+<span class="kw">fn</span> <span class="ident">extend64</span>(<span class="ident">bytes</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">value</span>: <span class="ident">u64</span>) {
     <span class="ident">bytes</span>.<span class="ident">extend_from_slice</span>(<span class="ident">value</span>.<span class="ident">to_le_bytes</span>().<span class="ident">as_ref</span>());
 }
 
-<span class="kw">fn</span> <span class="ident">extendu</span>(<span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">value</span>: <span class="ident">usize</span>) {
+<span class="kw">fn</span> <span class="ident">extendu</span>(<span class="ident">bytes</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">value</span>: <span class="ident">usize</span>) {
     <span class="comment">// on desktop, usize is u64</span>
     <span class="ident">bytes</span>.<span class="ident">extend_from_slice</span>((<span class="ident">value</span> <span class="kw">as</span> <span class="ident">u32</span>).<span class="ident">to_le_bytes</span>().<span class="ident">as_ref</span>());
 }
-
 </code></pre></div>
-</section><section id="search" class="content hidden"></section><div id="rustdoc-vars" data-root-path="../../" data-current-crate="lpc55" data-search-index-js="../../search-index.js" data-search-js="../../search.js"></div>
-    <script src="../../main.js"></script><script src="../../source-script.js"></script><script src="../../source-files.js"></script>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="lpc55" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0 (7737e0b5c 2022-04-04)" ></div>
 </body></html>
